@@ -1,0 +1,28 @@
+{
+  "name": "vimeo-lightbox",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript solution that transforms Vimeo videos into responsive background elements with optional lightbox functionality",
+  "main": "custom-video-element.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "video",
+    "background",
+    "vimeo",
+    "embed",
+    "lightbox",
+    "responsive",
+    "iframe"
+  ],
+  "author": "Ravi Klaassens at Paramor©, (paramor.nl)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ravi-klaassens/vimeo-lightbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ravi-klaassens/vimeo-lightbox/issues"
+  },
+  "homepage": "https://github.com/ravi-klaassens/vimeo-lightbox#readme"
+} 
