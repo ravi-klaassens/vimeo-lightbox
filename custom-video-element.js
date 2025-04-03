@@ -76,8 +76,22 @@
       const embedWrapper = container.querySelector(`.${config.wrapperClass}`);
       if (!embedWrapper) return;
       
-      const iframe = container.querySelector('iframe');
-      if (!iframe) return;
+      let iframe = container.querySelector('iframe');
+      
+      // Check if there's a data-id attribute to create the iframe dynamically
+      const videoId = container.getAttribute('data-id');
+      
+      if (!iframe && videoId) {
+        // Create iframe if it doesn't exist but we have a video ID
+        iframe = document.createElement('iframe');
+        iframe.src = `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&loop=1&byline=0&title=0`;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+        embedWrapper.appendChild(iframe);
+      } else if (!iframe) {
+        return;
+      }
       
       // Get viewport dimensions
       const viewportWidth = window.innerWidth;
@@ -220,6 +234,29 @@
     container.visibilityObserver = observer;
   }
   
+  // Extract Vimeo ID from src URL
+  function getVimeoIdFromSrc(src) {
+    const match = src.match(/video\/(\d+)/);
+    return match ? match[1] : null;
+  }
+  
+  // Get Vimeo ID for a container
+  function getVimeoIdForContainer(container) {
+    // First check for data-id attribute
+    const dataId = container.getAttribute('data-id');
+    if (dataId) {
+      return dataId;
+    }
+    
+    // Fallback to extracting from iframe src
+    const iframe = container.querySelector('iframe');
+    if (iframe) {
+      return getVimeoIdFromSrc(iframe.src);
+    }
+    
+    return null;
+  }
+  
   // Add video trigger button to container
   function addVideoTrigger(container) {
     const videoTrigger = document.createElement('button');
@@ -277,7 +314,7 @@
       // Prevent event propagation to ensure the click isn't ignored
       e.stopPropagation();
       
-      const videoId = getVimeoIdFromSrc(container.querySelector('iframe').src);
+      const videoId = getVimeoIdForContainer(container);
       if (videoId) {
         openLightbox(videoId, container);
       }
@@ -288,14 +325,17 @@
     container.appendChild(videoTrigger);
   }
   
-  // Extract Vimeo ID from src URL
-  function getVimeoIdFromSrc(src) {
-    const match = src.match(/video\/(\d+)/);
-    return match ? match[1] : null;
-  }
-  
   // Create and open lightbox
   function openLightbox(videoId, container) {
+    // If no videoId was provided, try to get it from the container
+    if (!videoId) {
+      videoId = getVimeoIdForContainer(container);
+      if (!videoId) {
+        console.error('No video ID found for lightbox');
+        return;
+      }
+    }
+    
     // Pause the background video first if available
     const containerId = container.id;
     if (containerId && videoPlayers.has(containerId)) {

@@ -167,12 +167,10 @@
 <body>
     <!-- Hero section with video background -->
     <section class="hero">
-        <!-- Video container with custom-video-container class -->
-        <div class="custom-video-container" data-lightbox="on" data-color="00bcd4" data-thumbnail="https://cdn.prod.website-files.com/6798cba3ff70cd53ac01b30a/67d46d1c384c4526f1fae2ba_slide-2.avif">
+        <!-- Video container with custom-video-container class and data-id attribute -->
+        <div class="custom-video-container" data-lightbox="on" data-color="00bcd4" data-id="76979871">
             <div class="embed-wrapper">
-                <!-- Vimeo iframe embed -->
-                <iframe src="https://player.vimeo.com/video/76979871?background=1&autoplay=1&loop=1&byline=0&title=0"
-                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <!-- The iframe will be created automatically using the data-id attribute -->
             </div>
         </div>
         
@@ -189,70 +187,91 @@
         <p>This custom video element provides a responsive background video with an optional lightbox mode. It's designed to be lightweight, modular, and easy to implement.</p>
 
         <div class="examples">
-            <!-- Background Video Example -->
+            <!-- Background Video Example using data-id -->
             <div class="example">
                 <div class="example-header">
-                    <h3>Background Video Only</h3>
+                    <h3>Background Video with data-id (New Method)</h3>
                 </div>
                 <div class="example-content">
-                    <div class="custom-video-container" data-lightbox="off" data-thumbnail="https://cdn.prod.website-files.com/6798cba3ff70cd53ac01b30a/67d46d1c384c4526f1fae2ba_slide-2.avif">
+                    <div class="custom-video-container" data-lightbox="off" data-id="76979871">
                         <div class="embed-wrapper">
-                            <iframe src="https://player.vimeo.com/video/76979871?background=1&autoplay=1&loop=1&byline=0&title=0"
-                                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                            <!-- The iframe will be created automatically using the data-id attribute -->
                         </div>
-                    </div>
-                    <div class="overlay" style="background-color: rgba(0, 0, 0, 0.3);">
-                        <h3>Background Mode</h3>
-                        <p style="font-size: 1rem;">No lightbox functionality</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Lightbox Example -->
+            <!-- Background Video Example using traditional iframe -->
             <div class="example">
                 <div class="example-header">
-                    <h3>Background Video with Lightbox</h3>
+                    <h3>Background Video with iframe (Traditional Method)</h3>
                 </div>
                 <div class="example-content">
-                    <div class="custom-video-container" data-lightbox="on" data-color="ff5722" data-thumbnail="https://cdn.prod.website-files.com/6798cba3ff70cd53ac01b30a/67d46d1c384c4526f1fae2ba_slide-2.avif">
+                    <div class="custom-video-container" data-lightbox="off">
                         <div class="embed-wrapper">
                             <iframe src="https://player.vimeo.com/video/76979871?background=1&autoplay=1&loop=1&byline=0&title=0"
                                 frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
-                    <div class="overlay" style="background-color: rgba(0, 0, 0, 0.3);">
-                        <h3>Lightbox Mode</h3>
-                        <p style="font-size: 1rem;">Click the play button to open lightbox</p>
+                </div>
+            </div>
+
+            <!-- Lightbox Example using data-id -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Video with Lightbox using data-id</h3>
+                </div>
+                <div class="example-content">
+                    <div class="custom-video-container" data-lightbox="on" data-color="ff5722" data-id="76979871">
+                        <div class="embed-wrapper">
+                            <!-- The iframe will be created automatically using the data-id attribute -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox Example using traditional iframe -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Video with Lightbox using iframe</h3>
+                </div>
+                <div class="example-content">
+                    <div class="custom-video-container" data-lightbox="on" data-color="4caf50">
+                        <div class="embed-wrapper">
+                            <iframe src="https://player.vimeo.com/video/76979871?background=1&autoplay=1&loop=1&byline=0&title=0"
+                                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <h2 style="margin-top: 3rem;">Implementation</h2>
-        <p>Add the following HTML structure to your page:</p>
-        <pre class="code-block"><code>&lt;div class="custom-video-container" data-lightbox="on" data-color="00bcd4"&gt;
-    &lt;div class="embed-wrapper"&gt;
-        &lt;iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID?background=1&autoplay=1&loop=1&byline=0&title=0"
-            frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
+        <h2>Implementation</h2>
+        <p>Simply include the script and use the HTML structure as shown in the examples above.</p>
+        
+        <pre><code class="code-block">&lt;script src="https://cdn.jsdelivr.net/gh/ravi-klaassens/vimeo-lightbox@master/custom-video-element.min.js"&gt;&lt;/script&gt;</code></pre>
+        
+        <h3>Using the data-id attribute (Recommended)</h3>
+        <pre><code class="code-block">&lt;div class="custom-video-container" data-lightbox="on" data-color="00bcd4" data-id="YOUR_VIDEO_ID"&gt;
+  &lt;div class="embed-wrapper"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-        <h3 style="margin-top: 2rem;">Available Options</h3>
-        <ul class="parameters">
-            <li><code>data-lightbox="on"</code> - Enable lightbox functionality (default is "off")</li>
-            <li><code>data-color="00bcd4"</code> - Custom color for lightbox controls (use hex color without #)</li>
-        </ul>
+        <h3>Using the traditional iframe method</h3>
+        <pre><code class="code-block">&lt;div class="custom-video-container" data-lightbox="on" data-color="00bcd4"&gt;
+  &lt;div class="embed-wrapper"&gt;
+    &lt;iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID?background=1&autoplay=1&loop=1&byline=0&title=0"
+        frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
-        <h3>Features</h3>
+        <h3>Parameters</h3>
         <ul class="parameters">
-            <li>Fully responsive background videos</li>
-            <li>Optional lightbox mode with custom controls</li>
-            <li>Customizable control colors</li>
-            <li>Mobile-friendly design</li>
-            <li>No dependencies (loads Vimeo API only when needed)</li>
+            <li><code>data-id</code> - Vimeo video ID (recommended method)</li>
+            <li><code>data-lightbox</code> - Set to "on" to enable lightbox functionality</li>
+            <li><code>data-color</code> - Custom color for controls (hex without #)</li>
         </ul>
     </section>
-    
+
     <!-- Include the custom video element script -->
     <script src="custom-video-element.js"></script>
 </body>

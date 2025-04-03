@@ -21,7 +21,7 @@ npm install vimeo-lightbox
 Or include directly:
 
 ```html
-<script src="custom-video-element.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ravi-klaassens/vimeo-lightbox@master/custom-video-element.min.js"></script>
 ```
 
 ## Quick Start
@@ -29,7 +29,17 @@ Or include directly:
 Add this HTML structure to your page:
 
 ```html
-<div class="custom-video-container" data-lightbox="on" data-color="00bcd4" data-thumbnail="path/to/thumbnail.jpg">
+<div class="custom-video-container" data-lightbox="on" data-color="00bcd4" data-id="YOUR_VIDEO_ID">
+    <div class="embed-wrapper">
+        <!-- The iframe will be created automatically using the data-id attribute -->
+    </div>
+</div>
+```
+
+Alternatively, you can still use the traditional method with a full iframe:
+
+```html
+<div class="custom-video-container" data-lightbox="on" data-color="00bcd4">
     <div class="embed-wrapper">
         <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID?background=1&autoplay=1&loop=1&byline=0&title=0"
             frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
@@ -41,31 +51,46 @@ Add this HTML structure to your page:
 
 | Attribute | Values | Default | Description |
 |-----------|--------|---------|-------------|
+| `data-id` | Vimeo video ID | none | The Vimeo video ID (recommended method) |
 | `data-lightbox` | "on" / "off" | "off" | Enable or disable lightbox functionality |
 | `data-color` | Hex color (without #) | "00bcd4" | Set custom color for lightbox controls |
-| `data-thumbnail` | URL | none | Optional thumbnail image shown before video loads |
 
 ## Examples
 
 ### Background Video Only
 
 ```html
-<div class="custom-video-container" data-lightbox="off">
-    <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID?background=1&autoplay=1&loop=1&byline=0&title=0"
-            frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-    </div>
+<div class="custom-video-container" data-lightbox="off" data-id="YOUR_VIDEO_ID">
+    <div class="embed-wrapper"></div>
 </div>
 ```
 
 ### Background Video with Lightbox
 
 ```html
-<div class="custom-video-container" data-lightbox="on" data-color="ff5722">
-    <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID?background=1&autoplay=1&loop=1&byline=0&title=0"
-            frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-    </div>
+<div class="custom-video-container" data-lightbox="on" data-color="ff5722" data-id="YOUR_VIDEO_ID">
+    <div class="embed-wrapper"></div>
+</div>
+```
+
+## Usage in Webflow
+
+1. Add this script to your project settings or before the closing </body> tag:
+```html
+<script src="https://cdn.jsdelivr.net/gh/ravi-klaassens/vimeo-lightbox@master/custom-video-element.min.js"></script>
+```
+
+2. Create a Custom HTML embed element with the following structure:
+```html
+<div class="custom-video-container" data-lightbox="on" data-color="00bcd4" data-id="YOUR_VIDEO_ID">
+    <div class="embed-wrapper"></div>
+</div>
+```
+
+3. If using with a CMS collection, you can replace "YOUR_VIDEO_ID" with a dynamic reference to your CMS field:
+```html
+<div class="custom-video-container" data-lightbox="on" data-color="00bcd4" data-id="{{ wf {&quot;path&quot;:&quot;your-cms-field&quot;,&quot;type&quot;:&quot;PlainText&quot;} }}">
+    <div class="embed-wrapper"></div>
 </div>
 ```
 
